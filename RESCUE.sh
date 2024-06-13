@@ -40,7 +40,7 @@ Help()
    echo "DO NOT SUBMIT THIS SCRIPT DIRECTLY THROUGH SLURM. USE USAGE ABOVE AND TRUST ME!"
 }
 
-
+rescue_dir=$(pwd)
 
 # Get the options
 while getopts ":h*:i:o:t:m:d:s:r:" option; do   	
@@ -166,7 +166,7 @@ else
 
 ## Please do not change me unless you're absolutely sure
 ## Path to cutadapt  barcode fasta
-barcodes=./barcodes_linked2.fa
+barcodes=${rescue_dir}/barcodes_linked2.fa
 
 working_dir=$output_dir/RRN_pipeline
 
@@ -385,7 +385,7 @@ do
 		--keep-read-assignments \
 		--threads $threads \
 		$empanada \
-		--db /blue/triplett/share/rrn_analysis/RESCUE/databases/$database \
+		--db ${rescue_dir}/databases/$database \
 		--output-dir $working_dir/5-emu/
 done
 
@@ -397,8 +397,7 @@ fi
 if [[ $rstudio == y* ]]; then
    mv $working_dir/5-emu/*unknown.rel-abundance.tsv $working_dir
    mkdir $working_dir/6-rstudio
-   module load R
-   Rscript /blue/triplett/share/rrn_analysis/RESCUE/sbatch/RESCUE.R \
+   Rscript --vanilla ${rescue_dir}/sbatch/RESCUE.R \
    $working_dir/5-emu/ $working_dir/6-rstudio/ $mapping
 else
    echo "No Rstudio Today..."

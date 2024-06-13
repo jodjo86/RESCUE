@@ -24,20 +24,15 @@ However, this shell script can run locally after installing all programs into lo
 We will install all of the required programs into a conda environment
 Create a conda environment. Please run these EXACTLY as shown below.
 ```
-conda create -n RESCUE python=3.7 emu cutadapt
-CONDA_BASE=$(conda info --base)
+conda env create -f conda.yml
 conda activate RESCUE
-conda config --add channels defaults
-conda config --add channels bioconda
-conda config --add channels conda-forge
-conda install -c bioconda duplex-tools nanofilt
 ```
 ## **2. Downloading RESCUE Files**
 ```
 git clone https://github.com/josephpetrone/RESCUE.git
 cd ./RESCUE
 wget https://www.dropbox.com/s/f4oyl8ufj6bzqtz/databases.tar.gz
-tar –xvzf ./databases.tar.gz
+tar -xvzf databases.tar.gz && rm databases.tar.gz
 ```
 
 ## **3. Testing install**
@@ -54,7 +49,7 @@ cd /path/to/RESCUE/
 conda activate RESCUE
 ./RESCUE.sh -i /path/to/RESCUE/test/input/fastq -o /path/to/RESCUE/test/output -m 10gb -t 4 -d RRN_db -s no -r yes
 
-MAKE SURE TO PROVIDE THE ENTIRE PATH TO THE INSTALLATION. SIMPLY PUTTING "./" WILL NOT WORK
+MAKE SURE TO PROVIDE THE ABSOLUTE PATH TO THE INSTALLATION. SIMPLY PUTTING "./" WILL NOT WORK
 ```
 ## **5. Full Options**
 Syntax: scriptTemplate [-h|i|o|t|m|b|d|s|a|q|r|p] \
