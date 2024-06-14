@@ -35,7 +35,7 @@ Help()
    echo "-p     (Optional) path to mapping file if using RStudio"
    echo
    echo "example usage:"
-   echo "./RESCUE.sh -i /full/path/to/fastq/directory -o /full/path/to/RRN_pipeline_output -m 50gb -t 40 -d RRN_db -s yes -r yes -p /path/to/mapping.txt"
+   echo "./RESCUE.sh -i /full/path/to/fastq/directory -o /full/path/to/pipeline_output -m 50gb -t 40 -d RRN_db -s yes -r yes -p /path/to/mapping.txt"
    echo 
    echo "DO NOT SUBMIT THIS SCRIPT DIRECTLY THROUGH SLURM. USE USAGE ABOVE AND TRUST ME!"
 }
@@ -168,7 +168,7 @@ else
 ## Path to cutadapt  barcode fasta
 barcodes=${rescue_dir}/barcodes_linked2.fa
 
-working_dir=$output_dir/RRN_pipeline
+working_dir=$output_dir/${database}_pipeline
 
 cd $output_dir
 
@@ -178,7 +178,7 @@ cd $output_dir
 ############# READ SPLITTING ################
 #############################################
 
-mkdir RRN_pipeline
+mkdir ${database}_pipeline
 cd $working_dir
 mkdir ./1-duplextools
 echo $pwd
